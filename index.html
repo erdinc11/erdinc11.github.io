@@ -627,6 +627,37 @@
             <input data-key="guarantorPhone" inputmode="tel" maxlength="13">
           </div>
         </div>
+
+        <button
+          type="button"
+          class="party-toggle"
+          id="toggleSecondGuarantor"
+          aria-controls="secondGuarantorFields"
+          aria-expanded="false"
+        >
+          + İkinci Kefil Ekle
+        </button>
+
+        <div class="secondary-party hidden" id="secondGuarantorFields">
+          <h3>İkinci Kefil</h3>
+
+          <div class="field">
+            <label>İkinci Kefil Adı Soyadı</label>
+            <input data-key="guarantor2Name">
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label>İkinci Kefil T.C. No</label>
+              <input data-key="guarantor2Tckn" inputmode="numeric" maxlength="11">
+            </div>
+
+            <div class="field">
+              <label>İkinci Kefil Telefon</label>
+              <input data-key="guarantor2Phone" inputmode="tel" maxlength="13">
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="section">
@@ -756,6 +787,11 @@
       guarantorTckn:'',
       guarantorPhone:'',
 
+      guarantor2Enabled:false,
+      guarantor2Name:'',
+      guarantor2Tckn:'',
+      guarantor2Phone:'',
+
       leaseStart:'',
       durationValue:1,
       durationUnit:'year',
@@ -783,6 +819,8 @@
     const secondTenantFields = document.getElementById('secondTenantFields');
     const toggleSecondLandlord = document.getElementById('toggleSecondLandlord');
     const toggleSecondTenant = document.getElementById('toggleSecondTenant');
+    const secondGuarantorFields = document.getElementById('secondGuarantorFields');
+    const toggleSecondGuarantor = document.getElementById('toggleSecondGuarantor');
 
     const PAGE_W_PX = 210 / 25.4 * 96;
     const PAGE_H_PX = 297 / 25.4 * 96;
@@ -794,7 +832,8 @@
       'landlord2Tckn',
       'tenantTckn',
       'tenant2Tckn',
-      'guarantorTckn'
+      'guarantorTckn',
+      'guarantor2Tckn'
     ];
 
     const phoneKeys = [
@@ -802,7 +841,8 @@
       'landlord2Phone',
       'tenantPhone',
       'tenant2Phone',
-      'guarantorPhone'
+      'guarantorPhone',
+      'guarantor2Phone'
     ];
 
     function updatePreviewScale(){
@@ -1003,6 +1043,22 @@
       );
     }
 
+    function guarantorInline(){
+      return partiesInline(
+        {
+          name:state.guarantorName,
+          tckn:state.guarantorTckn,
+          phone:state.guarantorPhone
+        },
+        {
+          name:state.guarantor2Name,
+          tckn:state.guarantor2Tckn,
+          phone:state.guarantor2Phone
+        },
+        state.guarantor2Enabled
+      );
+    }
+
     function dualValueInline(primary, secondary, secondaryEnabled){
       const values = [];
 
@@ -1049,6 +1105,14 @@
       );
     }
 
+    function guarantorNames(){
+      return joinedPartyNames(
+        state.guarantorName,
+        state.guarantor2Name,
+        state.guarantor2Enabled
+      );
+    }
+
     function safeFilePart(v, fallback){
       const s = String(v ?? '')
         .trim()
@@ -1077,7 +1141,7 @@
 
       const payload = {
         type:'kira-sozlesmesi-duzenlenebilir',
-        version:2,
+        version:3,
         savedAt:new Date().toISOString(),
         state:{...state}
       };
@@ -1322,6 +1386,7 @@
     function syncSecondaryPartyVisibility(){
       const landlordEnabled = Boolean(state.landlord2Enabled);
       const tenantEnabled = Boolean(state.tenant2Enabled);
+      const guarantorEnabled = Boolean(state.guarantor2Enabled);
 
       secondLandlordFields.classList.toggle(
         'hidden',
@@ -1333,6 +1398,11 @@
         !tenantEnabled
       );
 
+      secondGuarantorFields.classList.toggle(
+        'hidden',
+        !guarantorEnabled
+      );
+
       toggleSecondLandlord.textContent = landlordEnabled
         ? 'İkinci Kiraya Vereni Kaldır'
         : '+ İkinci Kiraya Veren Ekle';
@@ -1340,6 +1410,10 @@
       toggleSecondTenant.textContent = tenantEnabled
         ? 'İkinci Kiracıyı Kaldır'
         : '+ İkinci Kiracı Ekle';
+
+      toggleSecondGuarantor.textContent = guarantorEnabled
+        ? 'İkinci Kefili Kaldır'
+        : '+ İkinci Kefil Ekle';
 
       toggleSecondLandlord.classList.toggle(
         'remove',
@@ -1351,6 +1425,11 @@
         tenantEnabled
       );
 
+      toggleSecondGuarantor.classList.toggle(
+        'remove',
+        guarantorEnabled
+      );
+
       toggleSecondLandlord.setAttribute(
         'aria-expanded',
         String(landlordEnabled)
@@ -1359,6 +1438,11 @@
       toggleSecondTenant.setAttribute(
         'aria-expanded',
         String(tenantEnabled)
+      );
+
+      toggleSecondGuarantor.setAttribute(
+        'aria-expanded',
+        String(guarantorEnabled)
       );
     }
 
@@ -1377,13 +1461,7 @@
             <tr>
               <td>${landlordInline()}</td>
 
-              <td>
-                ${identityInline(
-                  state.guarantorName,
-                  state.guarantorTckn,
-                  state.guarantorPhone
-                )}
-              </td>
+              <td>${guarantorInline()}</td>
 
               <td>${tenantInline()}</td>
             </tr>
@@ -1571,12 +1649,8 @@
 
               <p><b>15. Kefil kira akdi devam ettiği süre kefaleti devam eder.aylık ${monthly ? monthly + ' TL' : 'TL'} Yıllık ${annual ? moneyFormat(annual) + ' TL' : 'TL'} kabul eder.</b></p>
 
-              <p>${identityInline(
-                state.guarantorName,
-                state.guarantorTckn,
-                state.guarantorPhone
-              )} kefiliği kontrat süresi boyunca müteselsildir.
-İşbu sözleşmeyi Garantör ve müşterek müteselsil kefil sıfatıyla imzalayan ${identityInline(state.guarantorName)}
+              <p>${guarantorInline()} kefiliği kontrat süresi boyunca müteselsildir.
+İşbu sözleşmeyi Garantör ve müşterek müteselsil kefil sıfatıyla imzalayan ${blank(guarantorNames())}
 kiracının işbu sözleşmeden kaynaklanacak ve bu sözleşme ile ilgili her türlü edimlerine 6098 sayılı Türk
 Borçlar Kanunu’nun ilgili maddeleri çerçevesinde kiracı ile birlikte ve kiracının yanında müştereken ve
 müteselsilen sorumlu olacağını garanti etmektedir. Kiracı, kira sözleşmesi çerçevesinde kiralanan
@@ -1770,12 +1844,20 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
         }
       }
 
+      if(state.guarantor2Enabled){
+        requiredFields.push(
+          ['guarantor2Name','İkinci kefil adı soyadı zorunlu.'],
+          ['guarantor2Tckn','İkinci kefil T.C. No zorunlu.']
+        );
+      }
+
       const tcknFields = [
         ['landlordTckn','Kiraya veren T.C. No',true],
         ['landlord2Tckn','İkinci kiraya veren T.C. No',state.landlord2Enabled],
         ['tenantTckn','Kiracı T.C. No',true],
         ['tenant2Tckn','İkinci kiracı T.C. No',state.tenant2Enabled],
-        ['guarantorTckn','Kefil T.C. No',true]
+        ['guarantorTckn','Kefil T.C. No',true],
+        ['guarantor2Tckn','İkinci kefil T.C. No',state.guarantor2Enabled]
       ];
 
       for(const [key,label,enabled] of tcknFields){
@@ -1793,7 +1875,8 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
         ['landlord2Phone','İkinci kiraya veren telefon',state.landlord2Enabled],
         ['tenantPhone','Kiracı telefon',true],
         ['tenant2Phone','İkinci kiracı telefon',state.tenant2Enabled],
-        ['guarantorPhone','Kefil telefon',true]
+        ['guarantorPhone','Kefil telefon',true],
+        ['guarantor2Phone','İkinci kefil telefon',state.guarantor2Enabled]
       ];
 
       for(const [key,label,enabled] of phoneFields){
@@ -2006,6 +2089,24 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
       if(state.tenant2Enabled){
         const input = document.querySelector(
           '[data-key="tenant2Name"]'
+        );
+
+        if(input){
+          input.focus();
+        }
+      }
+    });
+
+    toggleSecondGuarantor.addEventListener('click', () => {
+      state.guarantor2Enabled = !state.guarantor2Enabled;
+
+      saveState();
+      syncSecondaryPartyVisibility();
+      render();
+
+      if(state.guarantor2Enabled){
+        const input = document.querySelector(
+          '[data-key="guarantor2Name"]'
         );
 
         if(input){
