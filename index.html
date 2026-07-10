@@ -689,6 +689,11 @@
         </div>
 
         <div class="field">
+          <label>DASK Poliçe No</label>
+          <input data-key="daskPolicyNo">
+        </div>
+
+        <div class="field">
           <label class="checkbox-row">
             <input data-key="depositOneRent" type="checkbox">
             <span>Depozito 1 kira bedeli</span>
@@ -796,6 +801,7 @@
       durationValue:1,
       durationUnit:'year',
       monthlyRent:'',
+      daskPolicyNo:'',
       depositOneRent:true,
       depositManual:'',
       paymentDayFrom:1,
@@ -1556,6 +1562,7 @@
                     ? `${moneyFormat(annual)} TL`
                     : '&nbsp;'
                 )}
+                ${contractRow('DASK Poliçe No', blank(state.daskPolicyNo))}
 
                 ${contractRow(
                   'Kira Ödeme<br>Şekli',
