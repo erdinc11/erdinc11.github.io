@@ -100,6 +100,44 @@
       font-weight:700;
     }
 
+    .party-toggle{
+      width:100%;
+      margin:0 0 10px;
+      border:1px dashed #8bb7ff;
+      border-radius:10px;
+      padding:9px 11px;
+      color:#0f5dcc;
+      background:#f3f8ff;
+      font-size:12px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .party-toggle:hover{
+      background:#e8f2ff;
+    }
+
+    .party-toggle.remove{
+      color:#b42318;
+      border-color:#f0a8a2;
+      background:#fff5f4;
+    }
+
+    .secondary-party{
+      margin:0 0 12px;
+      padding:12px;
+      border:1px solid #c9dcfa;
+      border-radius:12px;
+      background:#f8fbff;
+    }
+
+    .secondary-party h3{
+      margin:0 0 11px;
+      color:#1e4f8f;
+      font-size:12px;
+      text-transform:uppercase;
+    }
+
     .hidden{display:none!important}
 
     .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
@@ -472,24 +510,122 @@
       <div class="section">
         <h2>Taraflar</h2>
 
-        <div class="field"><label>Kiraya Veren Adı Soyadı</label><input data-key="landlordName"></div>
-        <div class="grid-2">
-          <div class="field"><label>Kiraya Veren T.C. No</label><input data-key="landlordTckn" inputmode="numeric" maxlength="11"></div>
-          <div class="field"><label>Kiraya Veren Telefon</label><input data-key="landlordPhone" inputmode="tel" maxlength="13"></div>
+        <div class="field">
+          <label>Kiraya Veren Adı Soyadı</label>
+          <input data-key="landlordName">
         </div>
 
-        <div class="field"><label>Kiracı Adı Soyadı</label><input data-key="tenantName"></div>
         <div class="grid-2">
-          <div class="field"><label>Kiracı T.C. No</label><input data-key="tenantTckn" inputmode="numeric" maxlength="11"></div>
-          <div class="field"><label>Kiracı Telefon</label><input data-key="tenantPhone" inputmode="tel" maxlength="13" ></div>
+          <div class="field">
+            <label>Kiraya Veren T.C. No</label>
+            <input data-key="landlordTckn" inputmode="numeric" maxlength="11">
+          </div>
+
+          <div class="field">
+            <label>Kiraya Veren Telefon</label>
+            <input data-key="landlordPhone" inputmode="tel" maxlength="13">
+          </div>
         </div>
 
-        <div class="field"><label>Kiracının İş Adresi</label><textarea data-key="tenantBusinessAddress"></textarea></div>
+        <button
+          type="button"
+          class="party-toggle"
+          id="toggleSecondLandlord"
+          aria-controls="secondLandlordFields"
+          aria-expanded="false"
+        >
+          + İkinci Kiraya Veren Ekle
+        </button>
 
-        <div class="field"><label>Kefil Adı Soyadı</label><input data-key="guarantorName"></div>
+        <div class="secondary-party hidden" id="secondLandlordFields">
+          <h3>İkinci Kiraya Veren</h3>
+
+          <div class="field">
+            <label>İkinci Kiraya Veren Adı Soyadı</label>
+            <input data-key="landlord2Name">
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label>İkinci Kiraya Veren T.C. No</label>
+              <input data-key="landlord2Tckn" inputmode="numeric" maxlength="11">
+            </div>
+
+            <div class="field">
+              <label>İkinci Kiraya Veren Telefon</label>
+              <input data-key="landlord2Phone" inputmode="tel" maxlength="13">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Kiracı Adı Soyadı</label>
+          <input data-key="tenantName">
+        </div>
+
         <div class="grid-2">
-          <div class="field"><label>Kefil T.C. No</label><input data-key="guarantorTckn" inputmode="numeric" maxlength="11"></div>
-          <div class="field"><label>Kefil Telefon</label><input data-key="guarantorPhone" inputmode="tel" maxlength="13" ></div>
+          <div class="field">
+            <label>Kiracı T.C. No</label>
+            <input data-key="tenantTckn" inputmode="numeric" maxlength="11">
+          </div>
+
+          <div class="field">
+            <label>Kiracı Telefon</label>
+            <input data-key="tenantPhone" inputmode="tel" maxlength="13">
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="party-toggle"
+          id="toggleSecondTenant"
+          aria-controls="secondTenantFields"
+          aria-expanded="false"
+        >
+          + İkinci Kiracı Ekle
+        </button>
+
+        <div class="secondary-party hidden" id="secondTenantFields">
+          <h3>İkinci Kiracı</h3>
+
+          <div class="field">
+            <label>İkinci Kiracı Adı Soyadı</label>
+            <input data-key="tenant2Name">
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label>İkinci Kiracı T.C. No</label>
+              <input data-key="tenant2Tckn" inputmode="numeric" maxlength="11">
+            </div>
+
+            <div class="field">
+              <label>İkinci Kiracı Telefon</label>
+              <input data-key="tenant2Phone" inputmode="tel" maxlength="13">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Kiracının İş Adresi</label>
+          <textarea data-key="tenantBusinessAddress"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Kefil Adı Soyadı</label>
+          <input data-key="guarantorName">
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label>Kefil T.C. No</label>
+            <input data-key="guarantorTckn" inputmode="numeric" maxlength="11">
+          </div>
+
+          <div class="field">
+            <label>Kefil Telefon</label>
+            <input data-key="guarantorPhone" inputmode="tel" maxlength="13">
+          </div>
         </div>
       </div>
 
@@ -497,12 +633,17 @@
         <h2>Kira Bilgileri</h2>
 
         <div class="grid-2">
-          <div class="field"><label>Kira Başlangıç Tarihi</label><input data-key="leaseStart" type="date"></div>
+          <div class="field">
+            <label>Kira Başlangıç Tarihi</label>
+            <input data-key="leaseStart" type="date">
+          </div>
 
           <div class="field">
             <label>Sözleşme Süresi</label>
+
             <div class="inline">
               <input data-key="durationValue" type="number" min="1" step="1">
+
               <select data-key="durationUnit">
                 <option value="year">yıl</option>
                 <option value="month">ay</option>
@@ -511,7 +652,10 @@
           </div>
         </div>
 
-        <div class="field"><label>Aylık Kira Bedeli</label><input data-key="monthlyRent" type="number" min="1" step="1"></div>
+        <div class="field">
+          <label>Aylık Kira Bedeli</label>
+          <input data-key="monthlyRent" type="number" min="1" step="1">
+        </div>
 
         <div class="field">
           <label class="checkbox-row">
@@ -526,17 +670,35 @@
         </div>
 
         <div class="grid-2">
-          <div class="field"><label>Ödeme Günü Başlangıç</label><input data-key="paymentDayFrom" type="number" min="1" max="31"></div>
-          <div class="field"><label>Ödeme Günü Bitiş</label><input data-key="paymentDayTo" type="number" min="1" max="31"></div>
+          <div class="field">
+            <label>Ödeme Günü Başlangıç</label>
+            <input data-key="paymentDayFrom" type="number" min="1" max="31">
+          </div>
+
+          <div class="field">
+            <label>Ödeme Günü Bitiş</label>
+            <input data-key="paymentDayTo" type="number" min="1" max="31">
+          </div>
         </div>
 
-        <div class="field"><label>IBAN</label><input data-key="iban" placeholder="TR..."></div>
-        <div class="field"><label>Demirbaşlar</label><textarea data-key="demirbaslar"></textarea></div>
+        <div class="field">
+          <label>IBAN</label>
+          <input data-key="iban" placeholder="TR...">
+        </div>
+
+        <div class="field">
+          <label>Demirbaşlar</label>
+          <textarea data-key="demirbaslar"></textarea>
+        </div>
       </div>
 
       <div class="section">
         <h2>Tahliye Taahhütnamesi</h2>
-        <div class="field"><label>Taahhüt Tarihi</label><input data-key="commitmentDate" type="date"></div>
+
+        <div class="field">
+          <label>Taahhüt Tarihi</label>
+          <input data-key="commitmentDate" type="date">
+        </div>
       </div>
 
       <div class="actions">
@@ -559,7 +721,7 @@
 
   <script>
   (() => {
-    const LS_KEY = 'kira_sozlesmesi_state_v13';
+    const LS_KEY = 'kira_sozlesmesi_state_v14';
 
     const defaults = {
       province:'İzmir',
@@ -569,16 +731,31 @@
       buildingNo:'',
       buildingName:'',
       apartmentNo:'',
+
       landlordName:'',
       landlordTckn:'',
       landlordPhone:'',
+
+      landlord2Enabled:false,
+      landlord2Name:'',
+      landlord2Tckn:'',
+      landlord2Phone:'',
+
       tenantName:'',
       tenantTckn:'',
       tenantPhone:'',
+
+      tenant2Enabled:false,
+      tenant2Name:'',
+      tenant2Tckn:'',
+      tenant2Phone:'',
+
       tenantBusinessAddress:'',
+
       guarantorName:'',
       guarantorTckn:'',
       guarantorPhone:'',
+
       leaseStart:'',
       durationValue:1,
       durationUnit:'year',
@@ -602,33 +779,71 @@
     const manualDepositField = document.getElementById('manualDepositField');
     const editableFileInput = document.getElementById('editableFileInput');
 
+    const secondLandlordFields = document.getElementById('secondLandlordFields');
+    const secondTenantFields = document.getElementById('secondTenantFields');
+    const toggleSecondLandlord = document.getElementById('toggleSecondLandlord');
+    const toggleSecondTenant = document.getElementById('toggleSecondTenant');
+
     const PAGE_W_PX = 210 / 25.4 * 96;
     const PAGE_H_PX = 297 / 25.4 * 96;
     const MAX_PREVIEW_SCALE = 0.62;
     const MIN_PREVIEW_SCALE = 0.1;
 
+    const tcknKeys = [
+      'landlordTckn',
+      'landlord2Tckn',
+      'tenantTckn',
+      'tenant2Tckn',
+      'guarantorTckn'
+    ];
+
+    const phoneKeys = [
+      'landlordPhone',
+      'landlord2Phone',
+      'tenantPhone',
+      'tenant2Phone',
+      'guarantorPhone'
+    ];
+
     function updatePreviewScale(){
       const usableWidth = Math.max(0, previewWrap.clientWidth - 32);
+
       const scale = Math.min(
         MAX_PREVIEW_SCALE,
         Math.max(MIN_PREVIEW_SCALE, usableWidth / PAGE_W_PX)
       );
 
-      document.documentElement.style.setProperty('--preview-scale', scale.toFixed(4));
-      document.documentElement.style.setProperty('--scaled-page-w', `${PAGE_W_PX * scale}px`);
-      document.documentElement.style.setProperty('--scaled-page-h', `${PAGE_H_PX * scale}px`);
+      document.documentElement.style.setProperty(
+        '--preview-scale',
+        scale.toFixed(4)
+      );
+
+      document.documentElement.style.setProperty(
+        '--scaled-page-w',
+        `${PAGE_W_PX * scale}px`
+      );
+
+      document.documentElement.style.setProperty(
+        '--scaled-page-h',
+        `${PAGE_H_PX * scale}px`
+      );
     }
 
     function loadState(){
       try{
-        return {...defaults, ...JSON.parse(localStorage.getItem(LS_KEY) || '{}')};
+        return {
+          ...defaults,
+          ...JSON.parse(localStorage.getItem(LS_KEY) || '{}')
+        };
       }catch{
         return {...defaults};
       }
     }
 
     function saveState(){
-      try{localStorage.setItem(LS_KEY, JSON.stringify(state));}catch{}
+      try{
+        localStorage.setItem(LS_KEY, JSON.stringify(state));
+      }catch{}
     }
 
     function esc(v){
@@ -668,11 +883,20 @@
 
     function money(v){
       const n = moneyNumber(v);
-      return n ? new Intl.NumberFormat('tr-TR', {maximumFractionDigits:0}).format(n) : '';
+
+      return n
+        ? new Intl.NumberFormat('tr-TR', {
+            maximumFractionDigits:0
+          }).format(n)
+        : '';
     }
 
     function moneyFormat(n){
-      return n ? new Intl.NumberFormat('tr-TR', {maximumFractionDigits:0}).format(n) : '';
+      return n
+        ? new Intl.NumberFormat('tr-TR', {
+            maximumFractionDigits:0
+          }).format(n)
+        : '';
     }
 
     function normalizePhoneDigits(v){
@@ -682,26 +906,147 @@
 
     function phoneFormat(v){
       const d = normalizePhoneDigits(v);
+
       if(!d) return '';
 
       if(d.startsWith('0')){
         if(d.length <= 4) return d;
         if(d.length <= 7) return `${d.slice(0,4)} ${d.slice(4)}`;
+
         return `${d.slice(0,4)} ${d.slice(4,7)} ${d.slice(7)}`;
       }
 
       if(d.length <= 3) return d;
       if(d.length <= 6) return `${d.slice(0,3)} ${d.slice(3)}`;
       if(d.length <= 8) return `${d.slice(0,3)} ${d.slice(3,6)} ${d.slice(6)}`;
+
       return `${d.slice(0,3)} ${d.slice(3,6)} ${d.slice(6,8)} ${d.slice(8)}`;
     }
 
-    function identityInline(name, tckn, phone){
+    function identityInlineValue(name, tckn, phone){
       const parts = [];
-      if(!isBlank(name)) parts.push(esc(name));
-      if(!isBlank(tckn)) parts.push(`TC:${esc(tckn)}`);
-      if(!isBlank(phone)) parts.push(`TEL: ${esc(phoneFormat(phone))}`);
-      return parts.length ? parts.join(' ') : '&nbsp;';
+
+      if(!isBlank(name)){
+        parts.push(esc(name));
+      }
+
+      if(!isBlank(tckn)){
+        parts.push(`TC:${esc(tckn)}`);
+      }
+
+      if(!isBlank(phone)){
+        parts.push(`TEL: ${esc(phoneFormat(phone))}`);
+      }
+
+      return parts.join(' ');
+    }
+
+    function identityInline(name, tckn, phone){
+      return identityInlineValue(name, tckn, phone) || '&nbsp;';
+    }
+
+    function partiesInline(primary, secondary, secondaryEnabled){
+      const parties = [
+        identityInlineValue(
+          primary.name,
+          primary.tckn,
+          primary.phone
+        )
+      ];
+
+      if(secondaryEnabled){
+        parties.push(
+          identityInlineValue(
+            secondary.name,
+            secondary.tckn,
+            secondary.phone
+          )
+        );
+      }
+
+      const filtered = parties.filter(Boolean);
+
+      return filtered.length
+        ? filtered.join(' &nbsp;&nbsp; ')
+        : '&nbsp;';
+    }
+
+    function landlordInline(){
+      return partiesInline(
+        {
+          name:state.landlordName,
+          tckn:state.landlordTckn,
+          phone:state.landlordPhone
+        },
+        {
+          name:state.landlord2Name,
+          tckn:state.landlord2Tckn,
+          phone:state.landlord2Phone
+        },
+        state.landlord2Enabled
+      );
+    }
+
+    function tenantInline(){
+      return partiesInline(
+        {
+          name:state.tenantName,
+          tckn:state.tenantTckn,
+          phone:state.tenantPhone
+        },
+        {
+          name:state.tenant2Name,
+          tckn:state.tenant2Tckn,
+          phone:state.tenant2Phone
+        },
+        state.tenant2Enabled
+      );
+    }
+
+    function dualValueInline(primary, secondary, secondaryEnabled){
+      const values = [];
+
+      if(!isBlank(primary)){
+        values.push(esc(primary));
+      }
+
+      if(secondaryEnabled && !isBlank(secondary)){
+        values.push(esc(secondary));
+      }
+
+      return values.length
+        ? values.join(' &nbsp;&nbsp; ')
+        : '&nbsp;';
+    }
+
+    function joinedPartyNames(primary, secondary, secondaryEnabled, separator=' ve '){
+      const names = [];
+
+      if(!isBlank(primary)){
+        names.push(String(primary).trim());
+      }
+
+      if(secondaryEnabled && !isBlank(secondary)){
+        names.push(String(secondary).trim());
+      }
+
+      return names.join(separator);
+    }
+
+    function landlordNames(){
+      return joinedPartyNames(
+        state.landlordName,
+        state.landlord2Name,
+        state.landlord2Enabled
+      );
+    }
+
+    function tenantNames(){
+      return joinedPartyNames(
+        state.tenantName,
+        state.tenant2Name,
+        state.tenant2Enabled
+      );
     }
 
     function safeFilePart(v, fallback){
@@ -717,8 +1062,8 @@
 
     function fileNameBase(){
       return [
-        safeFilePart(state.landlordName, 'Kiraya Veren'),
-        safeFilePart(state.tenantName, 'Kiraci'),
+        safeFilePart(landlordNames(), 'Kiraya Veren'),
+        safeFilePart(tenantNames(), 'Kiraci'),
         safeFilePart(state.neighborhood, 'Mahalle')
       ].join(' - ');
     }
@@ -732,17 +1077,22 @@
 
       const payload = {
         type:'kira-sozlesmesi-duzenlenebilir',
-        version:1,
+        version:2,
         savedAt:new Date().toISOString(),
         state:{...state}
       };
 
-      const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'text/plain;charset=utf-8'});
+      const blob = new Blob(
+        [JSON.stringify(payload, null, 2)],
+        {type:'text/plain;charset=utf-8'}
+      );
+
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
 
       a.href = url;
       a.download = editableFileName();
+
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -755,7 +1105,10 @@
       const next = {...defaults};
 
       for(const key of Object.keys(defaults)){
-        if(Object.prototype.hasOwnProperty.call(incoming, key)){
+        if(
+          incoming &&
+          Object.prototype.hasOwnProperty.call(incoming, key)
+        ){
           next[key] = incoming[key];
         }
       }
@@ -769,12 +1122,15 @@
       reader.onload = () => {
         try{
           const parsed = JSON.parse(String(reader.result || ''));
+
           state = normalizeImportedState(parsed);
+
           saveState();
           syncInputs();
         }catch{
           statusEl.classList.add('bad');
-          statusEl.textContent = 'Dosya açılamadı. Bu dosya geçerli düzenlenebilir kayıt değil.';
+          statusEl.textContent =
+            'Dosya açılamadı. Bu dosya geçerli düzenlenebilir kayıt değil.';
         }
       };
 
@@ -789,7 +1145,10 @@
 
     function depositText(){
       const n = depositAmount();
-      return n ? `${moneyFormat(n)} TL` : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TL';
+
+      return n
+        ? `${moneyFormat(n)} TL`
+        : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TL';
     }
 
     function pad(n){
@@ -798,48 +1157,97 @@
 
     function formatDate(value){
       if(!value) return ' / / ';
+
       const d = new Date(value + 'T00:00:00');
-      if(Number.isNaN(d.getTime())) return ' / / ';
+
+      if(Number.isNaN(d.getTime())){
+        return ' / / ';
+      }
+
       return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
     }
 
     function addMonths(dateStr, months){
       if(!dateStr) return '';
+
       const d = new Date(dateStr + 'T00:00:00');
-      if(Number.isNaN(d.getTime())) return '';
+
+      if(Number.isNaN(d.getTime())){
+        return '';
+      }
+
       const day = d.getDate();
+
       d.setMonth(d.getMonth() + months, 1);
-      const last = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
+
+      const last = new Date(
+        d.getFullYear(),
+        d.getMonth()+1,
+        0
+      ).getDate();
+
       d.setDate(Math.min(day,last));
+
       return d.toISOString().slice(0,10);
     }
 
     function addYears(dateStr, years){
       if(!dateStr) return '';
+
       const d = new Date(dateStr + 'T00:00:00');
-      if(Number.isNaN(d.getTime())) return '';
+
+      if(Number.isNaN(d.getTime())){
+        return '';
+      }
+
       const day = d.getDate();
       const month = d.getMonth();
+
       d.setFullYear(d.getFullYear() + years, month, 1);
-      const last = new Date(d.getFullYear(), month+1, 0).getDate();
+
+      const last = new Date(
+        d.getFullYear(),
+        month+1,
+        0
+      ).getDate();
+
       d.setDate(Math.min(day,last));
+
       return d.toISOString().slice(0,10);
     }
 
     function leaseDurationText(){
-      const val = Math.max(1, toNumber(state.durationValue) || 1);
+      const val = Math.max(
+        1,
+        toNumber(state.durationValue) || 1
+      );
+
       return `${val} ${state.durationUnit === 'month' ? 'ay' : 'yıl'}`;
     }
 
     function leaseDurationSentence(){
-      const val = Math.max(1, toNumber(state.durationValue) || 1);
-      const unit = state.durationUnit === 'month' ? 'ay' : 'yıl';
+      const val = Math.max(
+        1,
+        toNumber(state.durationValue) || 1
+      );
+
+      const unit = state.durationUnit === 'month'
+        ? 'ay'
+        : 'yıl';
+
       return `bir ( ${val} ) ${unit}dır`;
     }
 
     function leaseEndDate(){
-      const val = Math.max(1, toNumber(state.durationValue) || 1);
-      if(!state.leaseStart) return '';
+      const val = Math.max(
+        1,
+        toNumber(state.durationValue) || 1
+      );
+
+      if(!state.leaseStart){
+        return '';
+      }
+
       return state.durationUnit === 'month'
         ? addMonths(state.leaseStart, val)
         : addYears(state.leaseStart, val);
@@ -856,25 +1264,37 @@
     function paymentDays(){
       const a = toNumber(state.paymentDayFrom);
       const b = toNumber(state.paymentDayTo);
-      if(a && b && a !== b) return `${a}-${b}`;
+
+      if(a && b && a !== b){
+        return `${a}-${b}`;
+      }
+
       return String(a || b || '');
     }
 
     function ibanClean(){
-      return String(state.iban || '').replace(/\s+/g,'').toUpperCase();
+      return String(state.iban || '')
+        .replace(/\s+/g,'')
+        .toUpperCase();
     }
 
     function ibanFormatted(){
       const v = ibanClean();
-      return v ? v.replace(/(.{4})(?=.)/g,'$1 ').trim() : '';
+
+      return v
+        ? v.replace(/(.{4})(?=.)/g,'$1 ').trim()
+        : '';
     }
 
     function payeeName(){
-      return state.landlordName;
+      return landlordNames();
     }
 
     function buildingIdentity(){
-      return [state.buildingNo, state.buildingName].filter(Boolean).join(' ');
+      return [
+        state.buildingNo,
+        state.buildingName
+      ].filter(Boolean).join(' ');
     }
 
     function addressLine(){
@@ -883,7 +1303,9 @@
         state.street,
         'Bina:',
         buildingIdentity(),
-        state.apartmentNo ? `Daire: ${state.apartmentNo}` : '',
+        state.apartmentNo
+          ? `Daire: ${state.apartmentNo}`
+          : '',
         state.district,
         '/',
         state.province
@@ -891,7 +1313,53 @@
     }
 
     function syncDepositManualVisibility(){
-      manualDepositField.classList.toggle('hidden', Boolean(state.depositOneRent));
+      manualDepositField.classList.toggle(
+        'hidden',
+        Boolean(state.depositOneRent)
+      );
+    }
+
+    function syncSecondaryPartyVisibility(){
+      const landlordEnabled = Boolean(state.landlord2Enabled);
+      const tenantEnabled = Boolean(state.tenant2Enabled);
+
+      secondLandlordFields.classList.toggle(
+        'hidden',
+        !landlordEnabled
+      );
+
+      secondTenantFields.classList.toggle(
+        'hidden',
+        !tenantEnabled
+      );
+
+      toggleSecondLandlord.textContent = landlordEnabled
+        ? 'İkinci Kiraya Vereni Kaldır'
+        : '+ İkinci Kiraya Veren Ekle';
+
+      toggleSecondTenant.textContent = tenantEnabled
+        ? 'İkinci Kiracıyı Kaldır'
+        : '+ İkinci Kiracı Ekle';
+
+      toggleSecondLandlord.classList.toggle(
+        'remove',
+        landlordEnabled
+      );
+
+      toggleSecondTenant.classList.toggle(
+        'remove',
+        tenantEnabled
+      );
+
+      toggleSecondLandlord.setAttribute(
+        'aria-expanded',
+        String(landlordEnabled)
+      );
+
+      toggleSecondTenant.setAttribute(
+        'aria-expanded',
+        String(tenantEnabled)
+      );
     }
 
     function sigTable(){
@@ -904,18 +1372,31 @@
               <th>KİRACI</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
-              <td>${identityInline(state.landlordName, state.landlordTckn, state.landlordPhone)}</td>
-              <td>${identityInline(state.guarantorName, state.guarantorTckn, state.guarantorPhone)}</td>
-              <td>${identityInline(state.tenantName, state.tenantTckn, state.tenantPhone)}</td>
+              <td>${landlordInline()}</td>
+
+              <td>
+                ${identityInline(
+                  state.guarantorName,
+                  state.guarantorTckn,
+                  state.guarantorPhone
+                )}
+              </td>
+
+              <td>${tenantInline()}</td>
             </tr>
           </tbody>
         </table>`;
     }
 
     function contractRow(label, value, cls=''){
-      return `<tr class="${cls}"><th>${label}</th><td>${value}</td></tr>`;
+      return `
+        <tr class="${cls}">
+          <th>${label}</th>
+          <td>${value}</td>
+        </tr>`;
     }
 
     function page1(){
@@ -930,21 +1411,91 @@
 
             <table class="contract-table">
               <tbody>
-                ${contractRow('Dairesi', blank(state.apartmentNo))}
-                ${contractRow('Mahallesi', blank(state.neighborhood))}
-                ${contractRow('Cadde/Sokağı', blank(state.street))}
-                ${contractRow('Numarası', blank(buildingIdentity()))}
-                ${contractRow('Kiralananın<br>Cinsi', 'MESKEN', 'mid')}
-                ${contractRow('Kiraya Verenin<br>Adı<br>Soyadı<br>T.C.Kimlik No', identityInline(state.landlordName, state.landlordTckn, state.landlordPhone), 'xbig')}
-                ${contractRow('Kiracının Adı<br>Soyadı T.C.NO', identityInline(state.tenantName, state.tenantTckn, state.tenantPhone), 'big')}
-                ${contractRow('Kiracının İş<br>Adresi', nl(state.tenantBusinessAddress), 'big')}
-                ${contractRow('Kira Başlangıç<br>Tarihi', formatDate(state.leaseStart), 'mid')}
-                ${contractRow('Sözleşmenin<br>Süresi', leaseDurationText(), 'mid')}
-                ${contractRow('Aylık Kira Bedeli', monthly ? `${monthly} TL` : '&nbsp;')}
-                ${contractRow('Yıllık Kira Bedeli', annual ? `${moneyFormat(annual)} TL` : '&nbsp;')}
-                ${contractRow('Kira Ödeme<br>Şekli', blank(iban), 'mid')}
-                ${contractRow('Kiralananın<br>Durumu<br>ve Kullanım<br>Şekli', 'BOŞ MESKEN SADECE MESKEN OLARAK KULLANILACAKTIR', 'big')}
-                ${contractRow('Kiralananla<br>Birlikte<br>Teslim Edilen<br>Demirbaşlar', nl(state.demirbaslar), 'tall')}
+                ${contractRow(
+                  'Dairesi',
+                  blank(state.apartmentNo)
+                )}
+
+                ${contractRow(
+                  'Mahallesi',
+                  blank(state.neighborhood)
+                )}
+
+                ${contractRow(
+                  'Cadde/Sokağı',
+                  blank(state.street)
+                )}
+
+                ${contractRow(
+                  'Numarası',
+                  blank(buildingIdentity())
+                )}
+
+                ${contractRow(
+                  'Kiralananın<br>Cinsi',
+                  'MESKEN',
+                  'mid'
+                )}
+
+                ${contractRow(
+                  'Kiraya Verenin<br>Adı<br>Soyadı<br>T.C.Kimlik No',
+                  landlordInline(),
+                  'xbig'
+                )}
+
+                ${contractRow(
+                  'Kiracının Adı<br>Soyadı T.C.NO',
+                  tenantInline(),
+                  'big'
+                )}
+
+                ${contractRow(
+                  'Kiracının İş<br>Adresi',
+                  nl(state.tenantBusinessAddress),
+                  'big'
+                )}
+
+                ${contractRow(
+                  'Kira Başlangıç<br>Tarihi',
+                  formatDate(state.leaseStart),
+                  'mid'
+                )}
+
+                ${contractRow(
+                  'Sözleşmenin<br>Süresi',
+                  leaseDurationText(),
+                  'mid'
+                )}
+
+                ${contractRow(
+                  'Aylık Kira Bedeli',
+                  monthly ? `${monthly} TL` : '&nbsp;'
+                )}
+
+                ${contractRow(
+                  'Yıllık Kira Bedeli',
+                  annual
+                    ? `${moneyFormat(annual)} TL`
+                    : '&nbsp;'
+                )}
+
+                ${contractRow(
+                  'Kira Ödeme<br>Şekli',
+                  blank(iban),
+                  'mid'
+                )}
+
+                ${contractRow(
+                  'Kiralananın<br>Durumu<br>ve Kullanım<br>Şekli',
+                  'BOŞ MESKEN SADECE MESKEN OLARAK KULLANILACAKTIR',
+                  'big'
+                )}
+
+                ${contractRow(
+                  'Kiralananla<br>Birlikte<br>Teslim Edilen<br>Demirbaşlar',
+                  nl(state.demirbaslar),
+                  'tall'
+                )}
               </tbody>
             </table>
 
@@ -961,16 +1512,21 @@
 
             <div class="conditions-content">
               <p><b>1.</b> Bu kira sözleşmesinde kullanılacak tabirler:</p>
+
               <p><b><u>KİRAYA VEREN :</u></b> Gayrimenkul / menkul’ü kiraya verecek olup, bu sözleşmeye taraf olan mülk sahibi veya yetkili vekilini tanımlar.</p>
+
               <p><b><u>KİRACI:</u></b> Gayrimenkul / menkul’ü kiralayacak olup, bu sözleşmeye taraf olan kiralayan veya yetkili vekilidir.</p>
+
               <p><b><u>KİRALANAN:</u></b> İş bu sözleşmeye konu olan ve taraflarca sözleşmede belirtilen hususlarda üzerinde anlaşma sağlanan gayrimenkul / menkul’ü tanımlar.</p>
 
               <p><b>2.</b> Kiracı; kiralananı kısmen veya tamamen başkasına devredemez, kullandıramaz, kiraya veremez, kiralama amacı dışında kullanamaz. Bu kuralların aksine hareketler tahliye sebebi olarak kabul edilecektir.(B.K Md.322)</p>
 
               <p><b>3.</b> Kiracı; kiralananı, sözleşmeye uygun olarak özenle kullanmak ve kiralananın bulunduğu taşınmazda oturan kişiler ile komşulara gerekli saygıyı göstermekle yükümlüdür. Kiracının bu yükümlülüğüne aykırı davranması durumunda kiraya veren, en az otuz (30) gün süre vererek, aykırılığın giderilmesi, aksi takdirde sözleşmeyi feshedeceği konusunda yazılı bir ihtarda bulunur.</p>
+
               <p class="indent">Kiracının, kiralanana kasten ağır bir zarar vermesi, kiracıya verilecek sürenin yararsız olacağının anlaşılması veya kiracının bu yükümlülüğe aykırı davranışının kiraya veren veya aynı taşınmazda oturan kişiler ile komşular bakımından çekilmez olması durumlarında kiraya veren, yazılı bir bildirimle sözleşmeyi hemen feshedebilir. (T.B.K. Md. 316)</p>
 
               <p><b>4.</b> Kiracı; kiraya verenin yazılı izni olmadan kiralananda ana yapıyı bozacak hiçbir tadilat ve ilave yapamaz.Yenilik ve değişikliklere rıza gösteren kiraya veren, yazılı olarak kararlaştırılmış olmadıkça, kiralananın eski durumuyla geri verilmesini isteyemez.Kiracı; aksine yazılı bir anlaşma yoksa, kiraya verenin rızasıyla yaptığı yenilik ve değişiklikler sebebiyle kiralananda ortaya çıkan değer artışının karşılığını isteyemez. (T.B.K. Md.321)</p>
+
               <p class="indent">Kira akdi devam ettiği sürece kiralananda her ne sebeple olursa olsun kiracının kendi kusuru ile meydana gelebilecek her türlü hasar ve arızalar kiracı tarafından giderilecek olup bu hususlardan dolayı kiraya verenden talep de bulunulamaz.</p>
 
               <p><b>5.</b> Kiracı; ısıtma, aydınlatma, su, site/apt. yönetim aidatı, iş yerlerinde çevre temizlik vergisi vs. gibi kullanma giderlerine katlanmakla yükümlüdür. Bu giderleri ispat edici belgelerin birer örneğini, istem üzerine diğer tarafa (kiralayana) vermek zorundadır. (T.B.K. Md. 341)</p>
@@ -980,12 +1536,15 @@
               <p><b>7.</b> Kiracı; kiralananın tesliminden sonra muaccel olan kira bedelini veya yan gideri ödeme borcunu ifa etmezse, kiraya veren, kiracıya yazılı olarak en az otuz (30) gün süre verir, bu sürede de ifa etmeme durumunda, sözleşmeyi feshedeceğini bildirir. (T.B.K. Md. 315)</p>
 
               <p><b>8.</b> Kiraya veren; kiralananın kullanımıyla ilgili olmak üzere, kendisi veya üçüncü kişi tarafından yapılan yan giderlere katlanmakla yükümlüdür. (T.B.K. Md. 303)</p>
-         <p><b>9.</b> Kiracı; kiralananı ne durumda teslim almışsa, kira sözleşmesinin bitiminde o durumda geri vermekle yükümlüdür. Kiracı; sözleşmenin sona ermesi hâlinde, sözleşmeye aykırı kullanmadan doğacak zararları gidermekle yükümlüdür. (T.B.K. Md. 334)</p>
-        <p><b>10.</b> Kiracı, belirli süreli kira sözleşmesinin süresinin bitiminden en az on beş gün öncesine kadar bildirimde bulunmadıkça, sözleşme aynı koşullarla bir yıl için uzatılmış sayılır. (T.B.K. Md. 347)</p>
 
+              <p><b>9.</b> Kiracı; kiralananı ne durumda teslim almışsa, kira sözleşmesinin bitiminde o durumda geri vermekle yükümlüdür. Kiracı; sözleşmenin sona ermesi hâlinde, sözleşmeye aykırı kullanmadan doğacak zararları gidermekle yükümlüdür. (T.B.K. Md. 334)</p>
+
+              <p><b>10.</b> Kiracı, belirli süreli kira sözleşmesinin süresinin bitiminden en az on beş gün öncesine kadar bildirimde bulunmadıkça, sözleşme aynı koşullarla bir yıl için uzatılmış sayılır. (T.B.K. Md. 347)</p>
             </div>
 
-            <div class="conditions-sign">${sigTable()}</div>
+            <div class="conditions-sign">
+              ${sigTable()}
+            </div>
           </div>
         </section>`;
     }
@@ -1000,10 +1559,7 @@
         <section class="page conditions-page">
           <div class="page-inner">
             <div class="conditions-content">
-
-             
-              <p>
-              Kiracı belirli süreli kira sözleşmelerinde gayrimenkulü kira tarihinin bitmesinden önce tahliye ederse gayrimenkulün yeniden kiralanana kadar geçecek süre zarfında makul bir süre kadar kira bedelini ödemeyi taahhüt eder. Müteakip yıllarda kiracı gayrimenkulü tahliye etmeden 1 ay öncesinden mülk sahibine yazılı olarak tahliye talebini bildirmek zorundadır.</p>
+              <p>Kiracı belirli süreli kira sözleşmelerinde gayrimenkulü kira tarihinin bitmesinden önce tahliye ederse gayrimenkulün yeniden kiralanana kadar geçecek süre zarfında makul bir süre kadar kira bedelini ödemeyi taahhüt eder. Müteakip yıllarda kiracı gayrimenkulü tahliye etmeden 1 ay öncesinden mülk sahibine yazılı olarak tahliye talebini bildirmek zorundadır.</p>
 
               <p><b>11.</b> Kira başlangıç tarihi; ${formatDate(state.leaseStart)} ’dir. Kira kontrat süresi ${leaseDurationSentence()}. Kira bitiş tarihi : ${formatDate(leaseEndDate())}’dır</p>
 
@@ -1015,7 +1571,11 @@
 
               <p><b>15. Kefil kira akdi devam ettiği süre kefaleti devam eder.aylık ${monthly ? monthly + ' TL' : 'TL'} Yıllık ${annual ? moneyFormat(annual) + ' TL' : 'TL'} kabul eder.</b></p>
 
-              <p>${identityInline(state.guarantorName, state.guarantorTckn, state.guarantorPhone)} kefiliği kontrat süresi boyunca müteselsildir.
+              <p>${identityInline(
+                state.guarantorName,
+                state.guarantorTckn,
+                state.guarantorPhone
+              )} kefiliği kontrat süresi boyunca müteselsildir.
 İşbu sözleşmeyi Garantör ve müşterek müteselsil kefil sıfatıyla imzalayan ${identityInline(state.guarantorName)}
 kiracının işbu sözleşmeden kaynaklanacak ve bu sözleşme ile ilgili her türlü edimlerine 6098 sayılı Türk
 Borçlar Kanunu’nun ilgili maddeleri çerçevesinde kiracı ile birlikte ve kiracının yanında müştereken ve
@@ -1035,7 +1595,7 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
 
               <p><b>20.</b> Kontratta yazılı tebligat adresi kanuni olup, bu adrese yapılacak tebligat geçerli sayılacaktır. Kiracı adres değişikliğini derhal bildirmediği takdirde ilk adresinin kanuni tebligat adresi sayılacağını kabul eder.</p>
 
-              <p><b>21.</b> İşbu kira akdinden dolayı taraflar arasında doğabilecek her türlü uyuşmazlıkların hal mercii İZMİR İcra Daireleri ve Mahkemeleridir.</p>
+              <p><b>21.</b> İşbu kira akdinden dolayı taraflar arasında doğabilecek her türlü uyuşmazlıkların hal mercii ${blank(String(state.province || '').toLocaleUpperCase('tr-TR'))} İcra Daireleri ve Mahkemeleridir.</p>
 
               <p><b>22.</b> Kiralanan Gayrimenkulde bulunan ve kiracıya teslim edilen demirbaşlar ve gayrimenkulün durumu kira sözleşmesinde belirtilmiş ve listelenmiş olup taraflarca okunup yerinde görülerek imza altına alınmıştır.</p>
 
@@ -1044,7 +1604,9 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
               <p class="final">Vasıfları ve kullanım amacı yukarıda ve varsa eklerde belirtilen taşınmaz, tarafların rızasıyla ve yukarıda yazılı şartlarla kiralanmış olduğuna dair bu sözleşme 2 nüsha olarak tanzim ve teati edilmiş olup taraflara birer sureti verilmiştir.</p>
             </div>
 
-            <div class="conditions-sign">${sigTable()}</div>
+            <div class="conditions-sign">
+              ${sigTable()}
+            </div>
           </div>
         </section>`;
     }
@@ -1058,26 +1620,78 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
             <h1>TAHLİYE TAAHHÜTNAMESİ</h1>
 
             <div class="evac-heading">TAAHHÜT EDEN (KİRACI)</div>
+
             <table class="evac-table">
               <tbody>
-                <tr><th>ADI SOYADI</th><td>${blank(state.tenantName)}</td></tr>
-                <tr><th>T.C. NO</th><td>${blank(state.tenantTckn)}</td></tr>
+                <tr>
+                  <th>ADI SOYADI</th>
+
+                  <td>
+                    ${dualValueInline(
+                      state.tenantName,
+                      state.tenant2Name,
+                      state.tenant2Enabled
+                    )}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>T.C. NO</th>
+
+                  <td>
+                    ${dualValueInline(
+                      state.tenantTckn,
+                      state.tenant2Tckn,
+                      state.tenant2Enabled
+                    )}
+                  </td>
+                </tr>
               </tbody>
             </table>
 
             <div class="evac-heading">MÜLK SAHİBİ (KİRAYA VEREN)</div>
+
             <table class="evac-table">
               <tbody>
-                <tr><th>ADI SOYADI</th><td>${blank(state.landlordName)}</td></tr>
-                <tr><th>T.C.NO</th><td>${blank(state.landlordTckn)}</td></tr>
+                <tr>
+                  <th>ADI SOYADI</th>
+
+                  <td>
+                    ${dualValueInline(
+                      state.landlordName,
+                      state.landlord2Name,
+                      state.landlord2Enabled
+                    )}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>T.C.NO</th>
+
+                  <td>
+                    ${dualValueInline(
+                      state.landlordTckn,
+                      state.landlord2Tckn,
+                      state.landlord2Enabled
+                    )}
+                  </td>
+                </tr>
               </tbody>
             </table>
 
             <div class="evac-heading">TAHLİYE EDİLECEK GAYRİMENKULÜN</div>
+
             <table class="evac-table">
               <tbody>
-                <tr><th>ADRESİ</th><td>${blank(addressLine())}</td></tr>
-                <tr><th>TAHLİYE TARİHİ</th><td>.. / ... / ...</td></tr>
+                <tr>
+                  <th>ADRESİ</th>
+                  <td>${blank(addressLine())}</td>
+                </tr>
+
+                <tr>
+                  <th>TAHLİYE TARİHİ</th>
+                  <td>.. / ... / ...</td>
+                </tr>
               </tbody>
             </table>
 
@@ -1085,9 +1699,27 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
 
             <table class="evac-bottom">
               <tbody>
-                <tr><th>TAAHHÜT TARİHİ</th><td>${taahhut}</td></tr>
-                <tr><th>TAAHHÜT EDEN</th><td>${blank(state.tenantName)}</td></tr>
-                <tr><th>İMZASI</th><td>&nbsp;</td></tr>
+                <tr>
+                  <th>TAAHHÜT TARİHİ</th>
+                  <td>${taahhut}</td>
+                </tr>
+
+                <tr>
+                  <th>TAAHHÜT EDEN</th>
+
+                  <td>
+                    ${dualValueInline(
+                      state.tenantName,
+                      state.tenant2Name,
+                      state.tenant2Enabled
+                    )}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>İMZASI</th>
+                  <td>&nbsp;</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -1118,64 +1750,151 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
         ['commitmentDate','Taahhüt tarihi zorunlu.']
       ];
 
-      for(const [key,msg] of requiredFields){
-        if(isBlank(state[key])) errors.push(msg);
+      if(state.landlord2Enabled){
+        requiredFields.push(
+          ['landlord2Name','İkinci kiraya veren adı soyadı zorunlu.'],
+          ['landlord2Tckn','İkinci kiraya veren T.C. No zorunlu.']
+        );
       }
 
-      const landlordTckn = onlyDigits(state.landlordTckn);
-      const tenantTckn = onlyDigits(state.tenantTckn);
-      const guarantorTckn = onlyDigits(state.guarantorTckn);
+      if(state.tenant2Enabled){
+        requiredFields.push(
+          ['tenant2Name','İkinci kiracı adı soyadı zorunlu.'],
+          ['tenant2Tckn','İkinci kiracı T.C. No zorunlu.']
+        );
+      }
 
-      if(!isBlank(state.landlordTckn) && landlordTckn.length !== 11) errors.push('Kiraya veren T.C. No 11 rakam olmalı.');
-      if(!isBlank(state.tenantTckn) && tenantTckn.length !== 11) errors.push('Kiracı T.C. No 11 rakam olmalı.');
-      if(!isBlank(state.guarantorTckn) && guarantorTckn.length !== 11) errors.push('Kefil T.C. No 11 rakam olmalı.');
+      for(const [key,msg] of requiredFields){
+        if(isBlank(state[key])){
+          errors.push(msg);
+        }
+      }
 
-      const phoneFields = [
-        ['landlordPhone','Kiraya veren telefon'],
-        ['tenantPhone','Kiracı telefon'],
-        ['guarantorPhone','Kefil telefon']
+      const tcknFields = [
+        ['landlordTckn','Kiraya veren T.C. No',true],
+        ['landlord2Tckn','İkinci kiraya veren T.C. No',state.landlord2Enabled],
+        ['tenantTckn','Kiracı T.C. No',true],
+        ['tenant2Tckn','İkinci kiracı T.C. No',state.tenant2Enabled],
+        ['guarantorTckn','Kefil T.C. No',true]
       ];
 
-      for(const [key,label] of phoneFields){
-        const v = onlyDigits(state[key]);
-        if(v && !/^0\d{10}$/.test(v) && !/^5\d{9}$/.test(v)){
-          errors.push(`${label} 0 ile başlayan 11 rakam veya 5 ile başlayan 10 rakam olmalı.`);
+      for(const [key,label,enabled] of tcknFields){
+        if(!enabled) continue;
+
+        const value = onlyDigits(state[key]);
+
+        if(!isBlank(state[key]) && value.length !== 11){
+          errors.push(`${label} 11 rakam olmalı.`);
+        }
+      }
+
+      const phoneFields = [
+        ['landlordPhone','Kiraya veren telefon',true],
+        ['landlord2Phone','İkinci kiraya veren telefon',state.landlord2Enabled],
+        ['tenantPhone','Kiracı telefon',true],
+        ['tenant2Phone','İkinci kiracı telefon',state.tenant2Enabled],
+        ['guarantorPhone','Kefil telefon',true]
+      ];
+
+      for(const [key,label,enabled] of phoneFields){
+        if(!enabled) continue;
+
+        const value = onlyDigits(state[key]);
+
+        if(
+          value &&
+          !/^0\d{10}$/.test(value) &&
+          !/^5\d{9}$/.test(value)
+        ){
+          errors.push(
+            `${label} 0 ile başlayan 11 rakam veya 5 ile başlayan 10 rakam olmalı.`
+          );
         }
       }
 
       const iban = ibanClean();
-      if(!isBlank(state.iban) && !/^TR\d{24}$/.test(iban)) {
-        errors.push('IBAN TR ile başlamalı ve toplam 26 karakter olmalı.');
+
+      if(
+        !isBlank(state.iban) &&
+        !/^TR\d{24}$/.test(iban)
+      ){
+        errors.push(
+          'IBAN TR ile başlamalı ve toplam 26 karakter olmalı.'
+        );
       }
 
-      if(toNumber(state.durationValue) < 1) errors.push('Sözleşme süresi en az 1 olmalı.');
-      if(moneyNumber(state.monthlyRent) < 1) errors.push('Aylık kira bedeli 0’dan büyük olmalı.');
+      if(toNumber(state.durationValue) < 1){
+        errors.push('Sözleşme süresi en az 1 olmalı.');
+      }
+
+      if(moneyNumber(state.monthlyRent) < 1){
+        errors.push('Aylık kira bedeli 0’dan büyük olmalı.');
+      }
 
       if(!state.depositOneRent){
-        if(isBlank(state.depositManual)) errors.push('Depozito 1 kira bedeli değilse depozito bedeli zorunlu.');
-        if(moneyNumber(state.depositManual) < 1) errors.push('Depozito bedeli 0’dan büyük olmalı.');
+        if(isBlank(state.depositManual)){
+          errors.push(
+            'Depozito 1 kira bedeli değilse depozito bedeli zorunlu.'
+          );
+        }
+
+        if(moneyNumber(state.depositManual) < 1){
+          errors.push(
+            'Depozito bedeli 0’dan büyük olmalı.'
+          );
+        }
       }
 
       const a = toNumber(state.paymentDayFrom);
       const b = toNumber(state.paymentDayTo);
 
-      if(a < 1 || a > 31) errors.push('Ödeme günü başlangıç 1-31 arasında olmalı.');
-      if(b < 1 || b > 31) errors.push('Ödeme günü bitiş 1-31 arasında olmalı.');
-      if(a && b && a > b) errors.push('Ödeme günü başlangıcı bitiş gününden büyük olamaz.');
+      if(a < 1 || a > 31){
+        errors.push(
+          'Ödeme günü başlangıç 1-31 arasında olmalı.'
+        );
+      }
+
+      if(b < 1 || b > 31){
+        errors.push(
+          'Ödeme günü bitiş 1-31 arasında olmalı.'
+        );
+      }
+
+      if(a && b && a > b){
+        errors.push(
+          'Ödeme günü başlangıcı bitiş gününden büyük olamaz.'
+        );
+      }
 
       return [...new Set(errors)];
     }
 
     function render(){
       saveState();
-      preview.innerHTML = [page1(), page2(), page3(), page4()]
+
+      preview.innerHTML = [
+        page1(),
+        page2(),
+        page3(),
+        page4()
+      ]
         .map(page => `<div class="page-frame">${page}</div>`)
         .join('');
 
       const errors = validate();
-      errorsEl.innerHTML = errors.map(e => `<li>${esc(e)}</li>`).join('');
-      statusEl.classList.toggle('bad', errors.length > 0);
-      statusEl.textContent = errors.length ? 'Eksik veya hatalı alan var. PDF almadan önce düzelt.' : 'Önizleme hazır.';
+
+      errorsEl.innerHTML = errors
+        .map(error => `<li>${esc(error)}</li>`)
+        .join('');
+
+      statusEl.classList.toggle(
+        'bad',
+        errors.length > 0
+      );
+
+      statusEl.textContent = errors.length
+        ? 'Eksik veya hatalı alan var. PDF almadan önce düzelt.'
+        : 'Önizleme hazır.';
 
       syncInputs(false);
     }
@@ -1183,11 +1902,14 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
     function syncInputs(triggerRender=true){
       for(const el of formEls){
         const key = el.dataset.key;
-        if(document.activeElement === el) continue;
+
+        if(document.activeElement === el){
+          continue;
+        }
 
         if(el.type === 'checkbox'){
           el.checked = Boolean(state[key]);
-        }else if(['landlordPhone','tenantPhone','guarantorPhone'].includes(key)){
+        }else if(phoneKeys.includes(key)){
           el.value = phoneFormat(state[key]);
         }else{
           el.value = state[key] ?? '';
@@ -1195,72 +1917,160 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
       }
 
       syncDepositManualVisibility();
+      syncSecondaryPartyVisibility();
 
-      if(triggerRender) render();
+      if(triggerRender){
+        render();
+      }
     }
 
     function updateFromInput(el){
       const key = el.dataset.key;
-      let v = el.type === 'checkbox' ? el.checked : el.value;
 
-      if(['landlordTckn','tenantTckn','guarantorTckn'].includes(key)){
-        v = onlyDigits(v).slice(0,11);
-        el.value = v;
+      let value = el.type === 'checkbox'
+        ? el.checked
+        : el.value;
+
+      if(tcknKeys.includes(key)){
+        value = onlyDigits(value).slice(0,11);
+        el.value = value;
       }
 
-      if(['landlordPhone','tenantPhone','guarantorPhone'].includes(key)){
-        v = normalizePhoneDigits(v);
-        el.value = phoneFormat(v);
+      if(phoneKeys.includes(key)){
+        value = normalizePhoneDigits(value);
+        el.value = phoneFormat(value);
       }
 
       if(key === 'iban'){
-        v = String(v || '').replace(/\s+/g,'').toUpperCase();
-        el.value = v;
+        value = String(value || '')
+          .replace(/\s+/g,'')
+          .toUpperCase();
+
+        el.value = value;
       }
 
-      if(['durationValue','paymentDayFrom','paymentDayTo'].includes(key)){
-        v = v === '' ? '' : Number(v);
+      if(
+        [
+          'durationValue',
+          'paymentDayFrom',
+          'paymentDayTo'
+        ].includes(key)
+      ){
+        value = value === ''
+          ? ''
+          : Number(value);
       }
 
-      state[key] = v;
+      state[key] = value;
+
       render();
     }
 
     for(const el of formEls){
-      el.addEventListener('input', () => updateFromInput(el));
-      el.addEventListener('change', () => updateFromInput(el));
+      el.addEventListener(
+        'input',
+        () => updateFromInput(el)
+      );
+
+      el.addEventListener(
+        'change',
+        () => updateFromInput(el)
+      );
     }
 
-    document.getElementById('printPdf').addEventListener('click', () => {
+    toggleSecondLandlord.addEventListener('click', () => {
+      state.landlord2Enabled = !state.landlord2Enabled;
+
+      saveState();
+      syncSecondaryPartyVisibility();
       render();
-      const errors = validate();
 
-      if(errors.length){
-        errorsEl.scrollIntoView({behavior:'smooth', block:'nearest'});
-        return;
+      if(state.landlord2Enabled){
+        const input = document.querySelector(
+          '[data-key="landlord2Name"]'
+        );
+
+        if(input){
+          input.focus();
+        }
       }
-
-      const oldTitle = document.title;
-      document.title = fileNameBase();
-
-      const restoreTitle = () => {
-        document.title = oldTitle;
-        window.removeEventListener('afterprint', restoreTitle);
-      };
-
-      window.addEventListener('afterprint', restoreTitle);
-      window.print();
-      setTimeout(restoreTitle, 3000);
     });
 
-    document.getElementById('saveEditable').addEventListener('click', saveEditableFile);
+    toggleSecondTenant.addEventListener('click', () => {
+      state.tenant2Enabled = !state.tenant2Enabled;
 
-    document.getElementById('openEditable').addEventListener('click', () => {
-      editableFileInput.click();
+      saveState();
+      syncSecondaryPartyVisibility();
+      render();
+
+      if(state.tenant2Enabled){
+        const input = document.querySelector(
+          '[data-key="tenant2Name"]'
+        );
+
+        if(input){
+          input.focus();
+        }
+      }
     });
+
+    document
+      .getElementById('printPdf')
+      .addEventListener('click', () => {
+        render();
+
+        const errors = validate();
+
+        if(errors.length){
+          errorsEl.scrollIntoView({
+            behavior:'smooth',
+            block:'nearest'
+          });
+
+          return;
+        }
+
+        const oldTitle = document.title;
+
+        document.title = fileNameBase();
+
+        const restoreTitle = () => {
+          document.title = oldTitle;
+
+          window.removeEventListener(
+            'afterprint',
+            restoreTitle
+          );
+        };
+
+        window.addEventListener(
+          'afterprint',
+          restoreTitle
+        );
+
+        window.print();
+
+        setTimeout(restoreTitle, 3000);
+      });
+
+    document
+      .getElementById('saveEditable')
+      .addEventListener(
+        'click',
+        saveEditableFile
+      );
+
+    document
+      .getElementById('openEditable')
+      .addEventListener('click', () => {
+        editableFileInput.click();
+      });
 
     editableFileInput.addEventListener('change', () => {
-      const file = editableFileInput.files && editableFileInput.files[0];
+      const file =
+        editableFileInput.files &&
+        editableFileInput.files[0];
+
       editableFileInput.value = '';
 
       if(file){
@@ -1268,17 +2078,29 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
       }
     });
 
-    document.getElementById('resetForm').addEventListener('click', () => {
-      try{localStorage.removeItem(LS_KEY);}catch{}
-      state = {...defaults};
-      syncInputs();
-    });
+    document
+      .getElementById('resetForm')
+      .addEventListener('click', () => {
+        try{
+          localStorage.removeItem(LS_KEY);
+        }catch{}
+
+        state = {...defaults};
+
+        syncInputs();
+      });
 
     updatePreviewScale();
-    window.addEventListener('resize', updatePreviewScale);
+
+    window.addEventListener(
+      'resize',
+      updatePreviewScale
+    );
 
     if(window.ResizeObserver){
-      new ResizeObserver(updatePreviewScale).observe(previewWrap);
+      new ResizeObserver(
+        updatePreviewScale
+      ).observe(previewWrap);
     }
 
     syncInputs();
