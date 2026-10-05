@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# Yerel çalışma notları / proje hafızası (depoya girmesin)
+.workbuddy-ai/
