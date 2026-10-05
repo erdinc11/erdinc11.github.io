@@ -486,6 +486,27 @@
       box-shadow:inset 0 0 0 2px var(--accent), 0 0 0 3px rgba(15,110,253,.2);
     }
 
+    /*
+      Henüz doldurulmamış alanlar. Boş bir &nbsp; span'i yalnızca birkaç
+      piksel genişliğinde kaldığı için hover hedefi görünmüyordu. Alanın
+      kendi kutusu büyütülmez — o zaman satır kutusu kayar ve baskıdaki
+      yerleşim bozulur. Bunun yerine, içinde boş alan bulunan HÜCRE
+      vurgulanır. :where() hover kuralının özgüllüğünü sıfırlar; böylece
+      düzenleme sırasında hücre hover rengi yerine düzenleme rengini alır.
+    */
+    .page td:hover:where(:has(.u.is-empty)),
+    .page th:hover:where(:has(.u.is-empty)){
+      background:rgba(15,110,253,.08);
+      box-shadow:inset 0 0 0 1px rgba(15,110,253,.2);
+    }
+
+    /* Düzenleme sırasında alanın bulunduğu hücre belirgin olsun */
+    .page td:has(.u.is-editing),
+    .page th:has(.u.is-editing){
+      background:#e8f1ff;
+      box-shadow:inset 0 0 0 2px var(--accent), 0 0 0 3px rgba(15,110,253,.2);
+    }
+
     @media (max-width:1080px){
       .app{grid-template-columns:1fr}
       .controls{position:relative;top:auto;max-height:none}
@@ -500,6 +521,13 @@
       .edit-banner{display:none!important}
 
       .page [data-unit]{
+        background:transparent!important;
+        box-shadow:none!important;
+      }
+
+      /* Düzenleme sırasında baskı alınırsa hücre vurgusu çıkmasın */
+      .page td:has(.u.is-editing),
+      .page th:has(.u.is-editing){
         background:transparent!important;
         box-shadow:none!important;
       }
@@ -1026,7 +1054,14 @@
         inner = inner.replace(/\n/g,'<br>');
       }
 
-      if(inner === ''){
+      /*
+        Henüz yazılmamış alanlar: &nbsp; yüzünden span yalnızca birkaç
+        piksel genişliğinde kalıyor. is-empty sınıfı, alanın bulunduğu
+        hücrenin hover/düzenleme sırasında vurgulanabilmesi için gerekli.
+      */
+      const empty = inner === '';
+
+      if(empty){
         inner = '&nbsp;';
       }
 
@@ -1034,7 +1069,9 @@
         ? ` data-prefix="${esc(prefix)}"`
         : '';
 
-      return `<span class="u" data-key="${esc(key)}"${prefixAttr}>${inner}</span>`;
+      const cls = empty ? 'u is-empty' : 'u';
+
+      return `<span class="${cls}" data-key="${esc(key)}"${prefixAttr}>${inner}</span>`;
     }
 
     function onlyDigits(v){
@@ -2575,6 +2612,33 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
       render();
     }
 
+    /*
+      Tıklanan nokta doğrudan bir [data-unit] span'ine denk gelmiyorsa
+      (boş alanlar çok küçük olduğu için sık olur) içinde alan bulunan
+      hücreye bak. Tek alan varsa onu, birden fazla varsa boş olanı seç.
+    */
+    function unitFromEvent(target){
+      if(!target || !target.closest) return null;
+
+      const direct = target.closest('[data-unit]');
+
+      if(direct) return direct;
+
+      const cell = target.closest('td, th');
+
+      if(!cell) return null;
+
+      const units = [...cell.querySelectorAll('[data-unit]')];
+
+      if(units.length === 1) return units[0];
+
+      for(const unit of units){
+        if(unit.classList.contains('is-empty')) return unit;
+      }
+
+      return null;
+    }
+
     function onPreviewClick(event){
       const now = Date.now();
 
@@ -2590,9 +2654,7 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
           event.clientY
         );
 
-        const unit = target && target.closest
-          ? target.closest('[data-unit]')
-          : null;
+        const unit = unitFromEvent(target);
 
         if(unit && unit !== editingEl){
           event.preventDefault();
@@ -2606,11 +2668,7 @@ sorumluluğunu içermekte olup kiracılık ilişkisi devam ettiği müddetçe so
     }
 
     function onPreviewDblClick(event){
-      const target = event.target;
-
-      const unit = target && target.closest
-        ? target.closest('[data-unit]')
-        : null;
+      const unit = unitFromEvent(event.target);
 
       if(!unit) return;
 
